@@ -1,63 +1,19 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="theme-color" content="#174a42" />
+    <meta name="description" content="Practice the Westminster Shorter Catechism in an installable offline app." />
+    <meta name="theme-color" content="#2196f3" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Catechizer" />
-    <meta name="description" content="Practice the Westminster Shorter Catechism from an installable offline web app." />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.svg" />
+    <link rel="icon" href="/assets/icon.svg" type="image/svg+xml" />
     <title>Westminster Catechizer</title>
-    <link rel="manifest" href="./manifest.webmanifest" />
-    <link rel="icon" href="./assets/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="./assets/apple-touch-icon.svg" />
-    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <main class="app-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Westminster Shorter Catechism</p>
-          <h1>Catechizer</h1>
-        </div>
-        <button id="reset-progress" class="reset-button" type="button">Reset progress</button>
-      </header>
-
-      <section class="study-panel" aria-live="polite">
-        <div class="study-meta">
-          <span id="question-index" class="question-index"></span>
-          <span id="progress-label" class="progress-label"></span>
-        </div>
-
-        <article class="prompt">
-          <h2 id="question-text"></h2>
-          <div id="answer-wrap" class="answer-wrap" hidden>
-            <p class="answer-label">Answer</p>
-            <p id="answer-text" class="answer-text"></p>
-          </div>
-        </article>
-
-        <div class="study-actions">
-          <button id="reveal-answer" class="primary-action" type="button">Reveal answer</button>
-          <div id="rating-actions" class="rating-actions" hidden>
-            <button id="review-again" type="button">Review again</button>
-            <button id="mark-known" class="primary-action" type="button">Mark known</button>
-          </div>
-        </div>
-      </section>
-
-      <section class="progress-panel" aria-label="Study progress">
-        <div class="progress-copy">
-          <h2>Session progress</h2>
-          <p id="summary-text"></p>
-        </div>
-        <div class="meter" aria-hidden="true">
-          <span id="meter-fill"></span>
-        </div>
-        <ol id="question-list" class="question-list"></ol>
-      </section>
-    </main>
-    <script src="./app.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
