@@ -58,7 +58,7 @@ export default defineConfig({
         name: "Westminster Catechizer",
         orientation: "portrait",
         scope: "/",
-        short_name: "Catechizer",
+        short_name: "Westminster Catechizer",
         start_url: "/",
         theme_color: "#2196f3",
       },

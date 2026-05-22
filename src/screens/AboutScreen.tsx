@@ -36,7 +36,8 @@ export function AboutScreen() {
 
         <section className="about-section">
           <h2>Credits</h2>
-          <p>In Progress</p>
+          <p>Special thanks to Lilyana Sotelo for creating the Westminster Catechizer logo.</p>
+          <p>Westminster Catechizer is inspired by The Bible Memory App.</p>
         </section>
 
         <section className="about-section">
