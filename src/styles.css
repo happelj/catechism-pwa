@@ -392,12 +392,12 @@ a {
 }
 
 .proof-passage {
-  font-size: 22px;
-  line-height: 1.34;
+  font-size: 21px;
+  line-height: 1.42;
 }
 
 .proof-verse {
-  margin: 0 0 24px;
+  margin: 0 0 26px;
 }
 
 .proof-verse:last-child {
@@ -540,38 +540,38 @@ a {
   background: var(--primary);
   color: var(--surface-text);
   display: flex;
-  font-size: 26px;
+  font-size: 24px;
   font-weight: 300;
   line-height: 1.16;
-  min-height: 72px;
+  min-height: 64px;
   padding: 0 22px;
 }
 
 .question-detail-scroll {
   min-height: 0;
   overflow-y: auto;
-  padding: 20px 8px 20px;
+  padding: 12px 8px 24px;
   scroll-behavior: smooth;
 }
 
 .question-detail-scroll h1 {
-  font-size: 29px;
-  font-weight: 650;
-  line-height: 1.22;
-  margin: 0 0 32px;
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.28;
+  margin: 0 0 20px;
 }
 
 .typed-answer,
 .full-answer,
 .score-line {
-  font-size: 27px;
-  font-weight: 300;
-  line-height: 1.28;
+  font-size: 24px;
+  font-weight: 350;
+  line-height: 1.4;
 }
 
 .typed-answer,
 .full-answer {
-  margin: 0 0 27px;
+  margin: 0 0 20px;
 }
 
 .typed-answer .incorrect {
@@ -579,19 +579,23 @@ a {
 }
 
 .score-line {
-  margin: 0 0 24px;
+  margin: 0 0 18px;
 }
 
 .detail-button {
   display: block;
   font-size: 20px;
-  margin: 0 0 26px;
+  margin: 0 0 14px;
+}
+
+.question-detail-scroll h1 + .detail-button {
+  margin-top: 36px;
 }
 
 .proof-list {
   display: grid;
   justify-items: start;
-  margin: -2px 0 25px;
+  margin: -2px 0 20px;
 }
 
 .proof-list button {
@@ -599,16 +603,16 @@ a {
   border: 0;
   color: var(--text);
   cursor: pointer;
-  font-size: 24px;
-  line-height: 1.4;
-  min-height: 41px;
-  padding: 0;
+  font-size: 21px;
+  line-height: 1.42;
+  min-height: 44px;
+  padding: 3px 0;
   text-decoration: underline;
 }
 
 .proof-list p {
-  font-size: 18px;
-  line-height: 1.4;
+  font-size: 20px;
+  line-height: 1.42;
   margin: 0;
 }
 
@@ -634,7 +638,7 @@ a {
   display: flex;
   gap: 20px;
   justify-content: center;
-  margin: 42px 0 18px;
+  margin: 34px 0 18px;
 }
 
 .attempt-actions .native-button {
@@ -681,14 +685,14 @@ a {
 
   .app-toolbar h1,
   .question-detail-scroll h1 {
-    font-size: 25px;
+    font-size: 24px;
   }
 
   .typed-answer,
   .full-answer,
   .score-line,
   .stats-screen p {
-    font-size: 23px;
+    font-size: 22px;
   }
 
   .native-button,
