@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
-  <title>Westminster Catechizer icon</title>
-  <rect width="512" height="512" rx="96" fill="#174a42"/>
-  <path d="M126 122c0-20 16-36 36-36h188c20 0 36 16 36 36v268c0 20-16 36-36 36H162c-20 0-36-16-36-36V122Z" fill="#fff7e7"/>
-  <path d="M188 156h136M188 216h136M188 276h92" stroke="#b67d1b" stroke-linecap="round" stroke-width="28"/>
-  <path d="M202 372c28-52 80-52 108 0" fill="none" stroke="#174a42" stroke-linecap="round" stroke-width="24"/>
-</svg>
