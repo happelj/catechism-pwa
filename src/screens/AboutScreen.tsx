@@ -40,6 +40,18 @@ export function AboutScreen() {
         </section>
 
         <section className="about-section">
+          <h2>Privacy</h2>
+          <p>
+            Westminster Catechizer does not collect personal data, analytics, or tracking
+            information.
+          </p>
+          <p>
+            All memorization progress, preferences, and settings are stored locally on your device
+            and are not transmitted to external servers.
+          </p>
+        </section>
+
+        <section className="about-section">
           <h2>Contact</h2>
           <p>If you experience any problems with the app, please email:</p>
           <a className="about-email" href="mailto:makariosdevelopment@gmail.com">
