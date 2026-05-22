@@ -82,7 +82,13 @@ export const catechismQuestions = [
   {
     "answer": "God executeth his decrees in the works of creation and providence.",
     "number": 8,
-    "proofs": [],
+    "proofs": [
+      "Ps. 148:8",
+      "Isa. 40:26",
+      "Dan. 4:35",
+      "Acts 4:24-28",
+      "Rev. 4:11"
+    ],
     "question": "How doth God execute his decrees?"
   },
   {

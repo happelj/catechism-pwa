@@ -11,6 +11,10 @@ if (!catechismPath || !kjvPath) {
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const catechismSource = await readFile(catechismPath, "utf8");
 const kjvSource = await readFile(kjvPath, "utf8");
+const supplementalProofsByNumber = new Map([
+  // The Android catechism file omits Q8, but its KJV lookup includes these proof passages.
+  [8, ["Ps. 148:8", "Isa. 40:26", "Dan. 4:35", "Acts 4:24-28", "Rev. 4:11"]],
+]);
 
 function readQuotedValues(value) {
   return [...value.matchAll(/"((?:[^"\\]|\\.)*)"/g)].map((match) => decodeKotlinString(match[1]));
@@ -38,10 +42,11 @@ function buildQuestionData() {
 
   for (const match of catechismSource.matchAll(questionPattern)) {
     const number = Number(match[1]);
+    const sourceProofs = proofsByNumber.get(number) ?? [];
     questions.push({
       answer: decodeKotlinString(match[3]),
       number,
-      proofs: proofsByNumber.get(number) ?? [],
+      proofs: sourceProofs.length > 0 ? sourceProofs : supplementalProofsByNumber.get(number) ?? [],
       question: decodeKotlinString(match[2]),
     });
   }
