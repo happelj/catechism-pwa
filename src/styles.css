@@ -529,8 +529,7 @@ a {
   color: var(--text);
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;
-  height: 100vh;
-  height: 100dvh;
+  height: var(--question-detail-height, 100dvh);
   min-height: 0;
   overflow: hidden;
   padding: env(safe-area-inset-top) 16px max(12px, env(safe-area-inset-bottom));
@@ -617,11 +616,17 @@ a {
   background: transparent;
   border: 0;
   caret-color: transparent;
+  clip-path: inset(50%);
   color: transparent;
+  font-size: 16px;
   height: 1px;
+  left: 0;
   margin: 0;
   opacity: 0;
   padding: 0;
+  pointer-events: none;
+  position: fixed;
+  top: 0;
   width: 1px;
 }
 

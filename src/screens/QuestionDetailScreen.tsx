@@ -24,7 +24,6 @@ export function QuestionDetailScreen() {
   const question = catechismQuestions[questionIndex];
   const nextQuestion = catechismQuestions[questionIndex + 1];
   const captureRef = useRef<HTMLInputElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
   const attemptStartedAt = useRef(Date.now());
   const recordedAttempt = useRef<number | null>(null);
   const answerWords = useMemo(() => question?.answer.split(/\s+/) ?? [], [question]);
@@ -60,8 +59,25 @@ export function QuestionDetailScreen() {
   }, [question, settings.hasSeenProofHelp]);
 
   useEffect(() => {
-    contentRef.current?.scrollTo({ behavior: "smooth", top: contentRef.current.scrollHeight });
-  }, [activeProof, areProofsVisible, completed, isAnswerVisible, typedWords.length]);
+    const root = document.documentElement;
+
+    function updateViewportHeight() {
+      const visibleHeight = window.visualViewport?.height ?? window.innerHeight;
+      root.style.setProperty("--question-detail-height", `${visibleHeight}px`);
+    }
+
+    updateViewportHeight();
+    window.addEventListener("resize", updateViewportHeight);
+    window.visualViewport?.addEventListener("resize", updateViewportHeight);
+    window.visualViewport?.addEventListener("scroll", updateViewportHeight);
+
+    return () => {
+      root.style.removeProperty("--question-detail-height");
+      window.removeEventListener("resize", updateViewportHeight);
+      window.visualViewport?.removeEventListener("resize", updateViewportHeight);
+      window.visualViewport?.removeEventListener("scroll", updateViewportHeight);
+    };
+  }, []);
 
   useEffect(() => {
     if (!question || !completed || recordedAttempt.current === question.number) {
@@ -141,8 +157,22 @@ export function QuestionDetailScreen() {
 
   return (
     <main className="question-detail-screen" onClick={focusCapture}>
+      <input
+        aria-label="Type the first letter of each answer word"
+        autoCapitalize="none"
+        autoComplete="off"
+        className="answer-capture"
+        disabled={isAnswerVisible || completed}
+        onChange={(event) => {
+          const value = event.currentTarget.value;
+          event.currentTarget.value = "";
+          typeNextWords(value);
+        }}
+        ref={captureRef}
+        spellCheck="false"
+      />
       <header className="detail-toolbar">Question {question.number} - {savedScore}%</header>
-      <div className="question-detail-scroll" ref={contentRef}>
+      <div className="question-detail-scroll">
         <h1>{question.question}</h1>
         {typedWords.length > 0 && !isAnswerVisible && (
           <p className="typed-answer">
@@ -201,20 +231,6 @@ export function QuestionDetailScreen() {
             ))}
           </div>
         )}
-        <input
-          aria-label="Type the first letter of each answer word"
-          autoCapitalize="none"
-          autoComplete="off"
-          className="answer-capture"
-          disabled={isAnswerVisible || completed}
-          onChange={(event) => {
-            const value = event.currentTarget.value;
-            event.currentTarget.value = "";
-            typeNextWords(value);
-          }}
-          ref={captureRef}
-          spellCheck="false"
-        />
         {completed && (
           <div className="attempt-actions">
             <button className="native-button" onClick={retryQuestion} type="button">Retry</button>
