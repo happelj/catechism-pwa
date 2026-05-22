@@ -24,8 +24,6 @@ export type Profile = {
 };
 
 export type CatechizerSettings = {
-  childModeEnabled: boolean;
-  childModePin: string;
   currentProfileId: string | null;
   hasSeenProofHelp: boolean;
   theme: "light" | "dark";

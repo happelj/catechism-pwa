@@ -23,8 +23,6 @@ type CatechizerContextValue = StoredState & {
   createProfile: (name: string) => Profile | null;
   currentProfile: Profile | null;
   deleteProfile: (profileId: string) => void;
-  disableChildMode: (pin: string) => boolean;
-  enableChildMode: (pin: string) => void;
   getSessionElapsedMillis: (profileId: string) => number;
   markProofHelpSeen: () => void;
   recordAttempt: (questionNumber: number, score: number, timeSpentMillis: number) => void;
@@ -54,8 +52,6 @@ function defaultState(): StoredState {
   return {
     profiles: [],
     settings: {
-      childModeEnabled: false,
-      childModePin: "",
       currentProfileId: null,
       hasSeenProofHelp: false,
       theme: "light",
@@ -87,8 +83,9 @@ function normalizeStoredState(value: unknown): StoredState {
   return {
     profiles,
     settings: {
-      ...fallback.settings,
-      ...parsed.settings,
+      currentProfileId: parsed.settings?.currentProfileId ?? fallback.settings.currentProfileId,
+      hasSeenProofHelp: parsed.settings?.hasSeenProofHelp ?? fallback.settings.hasSeenProofHelp,
+      theme: parsed.settings?.theme === "dark" ? "dark" : fallback.settings.theme,
     },
   };
 }
@@ -349,41 +346,12 @@ export function CatechizerProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
-  const enableChildMode = useCallback((pin: string) => {
-    setState((current) => ({
-      ...current,
-      settings: {
-        ...current.settings,
-        childModeEnabled: true,
-        childModePin: pin,
-      },
-    }));
-  }, []);
-
-  const disableChildMode = useCallback((pin: string) => {
-    if (pin !== state.settings.childModePin) {
-      return false;
-    }
-
-    setState((current) => ({
-      ...current,
-      settings: {
-        ...current.settings,
-        childModeEnabled: false,
-        childModePin: "",
-      },
-    }));
-    return true;
-  }, [state.settings.childModePin]);
-
   const value = useMemo<CatechizerContextValue>(() => ({
     ...state,
     clearProgress,
     createProfile,
     currentProfile,
     deleteProfile,
-    disableChildMode,
-    enableChildMode,
     getSessionElapsedMillis,
     markProofHelpSeen,
     recordAttempt,
@@ -394,8 +362,6 @@ export function CatechizerProvider({ children }: { children: ReactNode }) {
     createProfile,
     currentProfile,
     deleteProfile,
-    disableChildMode,
-    enableChildMode,
     getSessionElapsedMillis,
     markProofHelpSeen,
     recordAttempt,

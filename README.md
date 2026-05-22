@@ -7,7 +7,7 @@ React/Vite Progressive Web App for practicing the Westminster Shorter Catechism 
 - Scrollable 107-question catechism index with per-profile progress percentages
 - First-letter answer practice flow with scoring, retry, next-question navigation, answer reveal, and KJV proof dialogs
 - Local profile creation, switching, deletion, statistics, and progress reset
-- Light and dark themes plus child mode for hiding outside links behind a PIN
+- Light and dark themes
 - `localStorage` persistence for profiles, progress, study attempts, stats, and settings
 - Installable offline PWA build using `vite-plugin-pwa`
 
