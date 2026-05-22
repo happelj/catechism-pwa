@@ -10,7 +10,7 @@
       ]
     },
     {
-      "source": "/westminster-catechizer.webmanifest",
+      "source": "/manifest.json",
       "headers": [
         {
           "key": "Cache-Control",
@@ -24,6 +24,33 @@
     },
     {
       "source": "/favicon.ico",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/icon.svg",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/apple-touch-icon.svg",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/maskable-icon.svg",
       "headers": [
         {
           "key": "Cache-Control",

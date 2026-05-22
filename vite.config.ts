@@ -8,11 +8,14 @@ export default defineConfig({
     VitePWA({
       includeAssets: [
         "assets/apple-touch-icon-180.png",
+        "assets/apple-touch-icon.svg",
         "assets/favicon-32.png",
         "assets/icon-192.png",
         "assets/icon-512.png",
+        "assets/icon.svg",
         "assets/maskable-icon-192.png",
         "assets/maskable-icon-512.png",
+        "assets/maskable-icon.svg",
         "assets/wc-apple-touch-icon-180.png",
         "assets/wc-favicon-32.png",
         "assets/wc-icon-192.png",
@@ -59,7 +62,7 @@ export default defineConfig({
         start_url: "/",
         theme_color: "#2196f3",
       },
-      manifestFilename: "westminster-catechizer.webmanifest",
+      manifestFilename: "manifest.json",
       registerType: "autoUpdate",
       workbox: {
         navigateFallback: "index.html",
