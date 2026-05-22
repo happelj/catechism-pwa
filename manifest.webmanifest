@@ -1,0 +1,25 @@
+{
+  "name": "Westminster Catechizer",
+  "short_name": "Catechizer",
+  "description": "Practice the Westminster Shorter Catechism offline.",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#f7f4ed",
+  "theme_color": "#174a42",
+  "icons": [
+    {
+      "src": "./assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/maskable-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
+

@@ -1,0 +1,10 @@
+# OS and editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Local tooling output
+node_modules/
+dist/
+coverage/
+
