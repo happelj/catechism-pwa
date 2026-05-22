@@ -1,34 +1,66 @@
 # Westminster Catechizer PWA
 
-A progressive web app starter for practicing the Westminster Shorter Catechism on a phone, including iPhone home-screen installation support and an offline app shell.
+React/Vite Progressive Web App for practicing the Westminster Shorter Catechism from a phone-first interface based on the Android Westminster Catechizer app.
 
-## What is included
+## Features
 
-- A dependency-free web app that runs from static files
-- A reveal-and-rate study flow with progress saved in `localStorage`
-- A web app manifest and iPhone-oriented metadata
-- A service worker that caches the app shell for offline use after the first load
-- A small starter question set in `app.js`
+- Scrollable 107-question catechism index with per-profile progress percentages
+- First-letter answer practice flow with scoring, retry, next-question navigation, answer reveal, and KJV proof dialogs
+- Local profile creation, switching, deletion, statistics, and progress reset
+- Light and dark themes plus child mode for hiding outside links behind a PIN
+- `localStorage` persistence for profiles, progress, study attempts, stats, and settings
+- Installable offline PWA build using `vite-plugin-pwa`
 
-## Run locally
+## Architecture
 
-Service workers require an HTTP origin. From the repository root, use any static file server, for example:
+- `src/screens`: route-level question list, question detail, profile, and statistics screens
+- `src/components`: toolbar, drawer, dialogs, scripture proof dialog, and question index rail
+- `src/state`: React context and local persistence for profiles, settings, progress, and session timing
+- `src/data`: converted Westminster Shorter Catechism and KJV proof data
+- `src/utils`: scoring and display helpers
+- `scripts/convert-android-data.mjs`: converter used to regenerate web data from the Android Kotlin references
+
+## Local development
+
+Install dependencies once:
 
 ```powershell
-npx serve .
+npm install
 ```
 
-Then open the local URL that the server prints.
+Start the Vite development server:
+
+```powershell
+npm run dev
+```
+
+Open the local URL Vite prints. For a production-style PWA check, build and preview the generated app:
+
+```powershell
+npm run build
+npm run preview
+```
+
+The preview server serves the generated manifest and service worker from `dist`.
+
+## Regenerate catechism data
+
+The committed TypeScript data has already been generated from the Android source. To regenerate it from the Kotlin references:
+
+```powershell
+node .\scripts\convert-android-data.mjs "<path-to-CatechismData.kt>" "<path-to-KjvVerseLookup.kt>"
+```
 
 ## Install on iPhone
 
-1. Deploy the site over HTTPS, for example with GitHub Pages.
-2. Open the deployed site in Safari on the iPhone.
-3. Use Share, then `Add to Home Screen`.
+1. Deploy the app over HTTPS.
+2. Open it in Safari on the iPhone.
+3. Use Share, then Add to Home Screen.
 
-## Next steps
+## Vercel deployment
 
-1. Replace the starter question set in `app.js` with the complete catechism data.
-2. Replace the placeholder SVG icons in `assets/` with production PNG app icons, including a 180 x 180 Apple touch icon.
-3. Add a deployment workflow or enable GitHub Pages for the repository.
+1. Import the GitHub repository into Vercel.
+2. Use the Vite defaults: build command `npm run build` and output directory `dist`.
+3. Deploy the project.
 
+`vercel.json` rewrites app routes back to `index.html`, so direct visits to profile, stats, and question routes still load the React app.
