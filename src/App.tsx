@@ -1,8 +1,20 @@
+import { Navigate, Route, Routes } from "react-router-dom";
+import { CatechizerProvider } from "./state/CatechizerContext";
+import { ProfilesScreen } from "./screens/ProfilesScreen";
+import { QuestionDetailScreen } from "./screens/QuestionDetailScreen";
+import { QuestionsScreen } from "./screens/QuestionsScreen";
+import { StatsScreen } from "./screens/StatsScreen";
+
 export function App() {
   return (
-    <main className="scaffold-screen">
-      <h1>Westminster Catechizer</h1>
-      <p>React PWA scaffold is ready for the Android clone implementation.</p>
-    </main>
+    <CatechizerProvider>
+      <Routes>
+        <Route path="/" element={<QuestionsScreen />} />
+        <Route path="/questions/:questionNumber" element={<QuestionDetailScreen />} />
+        <Route path="/profiles" element={<ProfilesScreen />} />
+        <Route path="/stats" element={<StatsScreen />} />
+        <Route path="*" element={<Navigate replace to="/" />} />
+      </Routes>
+    </CatechizerProvider>
   );
 }

@@ -36,6 +36,7 @@ export default defineConfig({
         start_url: "/",
         theme_color: "#2196f3",
       },
+      manifestFilename: "manifest.json",
       registerType: "autoUpdate",
       workbox: {
         navigateFallback: "index.html",
