@@ -51,6 +51,15 @@ export function QuestionDetailScreen() {
   }, [parsedQuestionNumber]);
 
   useEffect(() => {
+    if (!question?.proofs.length || settings.hasSeenProofHelp) {
+      return;
+    }
+
+    setIsProofHelpOpen(true);
+    requestAnimationFrame(() => captureRef.current?.blur());
+  }, [question, settings.hasSeenProofHelp]);
+
+  useEffect(() => {
     contentRef.current?.scrollTo({ behavior: "smooth", top: contentRef.current.scrollHeight });
   }, [activeProof, areProofsVisible, completed, isAnswerVisible, typedWords.length]);
 
@@ -121,13 +130,13 @@ export function QuestionDetailScreen() {
   }
 
   function toggleProofs() {
-    const nextVisible = !areProofsVisible;
-    setAreProofsVisible(nextVisible);
+    setAreProofsVisible((value) => !value);
+  }
 
-    if (nextVisible && question.proofs.length > 0 && !settings.hasSeenProofHelp) {
-      setIsProofHelpOpen(true);
-      markProofHelpSeen();
-    }
+  function dismissProofHelp() {
+    setIsProofHelpOpen(false);
+    markProofHelpSeen();
+    requestAnimationFrame(() => captureRef.current?.focus());
   }
 
   return (
@@ -228,12 +237,12 @@ export function QuestionDetailScreen() {
       </footer>
       {activeProof && <ProofDialog onDismiss={() => setActiveProof(null)} reference={activeProof} />}
       {isProofHelpOpen && (
-        <Dialog onDismiss={() => setIsProofHelpOpen(false)} title="Using Scripture Proofs">
+        <Dialog onDismiss={dismissProofHelp} title="Using Scripture Proofs">
           <p className="dialog-copy">
             Tap Show Proofs, then tap any scripture reference to open the full KJV passage.
           </p>
           <div className="dialog-actions">
-            <button onClick={() => setIsProofHelpOpen(false)} type="button">Continue</button>
+            <button onClick={dismissProofHelp} type="button">Continue</button>
           </div>
         </Dialog>
       )}
