@@ -45,6 +45,7 @@ export function DrawerMenu({ isOpen, onClose }: DrawerMenuProps) {
         <button onClick={toggleTheme} type="button">Toggle Dark Mode</button>
         <button onClick={() => goTo("/profiles")} type="button">Switch Profile</button>
         <button onClick={() => goTo("/stats")} type="button">View Stats</button>
+        <button onClick={() => goTo("/about")} type="button">About</button>
         {externalLinks.map((item) => (
           <a href={item.href} key={item.label} rel="noreferrer" target="_blank">
             {item.label}
