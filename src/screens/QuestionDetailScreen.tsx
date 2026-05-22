@@ -24,6 +24,7 @@ export function QuestionDetailScreen() {
   const question = catechismQuestions[questionIndex];
   const nextQuestion = catechismQuestions[questionIndex + 1];
   const captureRef = useRef<HTMLInputElement>(null);
+  const answerEndRef = useRef<HTMLSpanElement>(null);
   const attemptStartedAt = useRef(Date.now());
   const recordedAttempt = useRef<number | null>(null);
   const answerWords = useMemo(() => question?.answer.split(/\s+/) ?? [], [question]);
@@ -91,6 +92,20 @@ export function QuestionDetailScreen() {
       Date.now() - attemptStartedAt.current,
     );
   }, [answerWords.length, completed, question, recordAttempt, wrongWords]);
+
+  useEffect(() => {
+    if (typedWords.length === 0 || isAnswerVisible) {
+      return;
+    }
+
+    requestAnimationFrame(() => {
+      answerEndRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "nearest",
+      });
+    });
+  }, [isAnswerVisible, typedWords.length]);
 
   if (!question) {
     return (
@@ -181,6 +196,7 @@ export function QuestionDetailScreen() {
                 {word.text}{" "}
               </span>
             ))}
+            <span aria-hidden="true" className="answer-scroll-anchor" ref={answerEndRef} />
           </p>
         )}
         {score !== null && <p className="score-line">Score: {score.toFixed(2)}%</p>}
