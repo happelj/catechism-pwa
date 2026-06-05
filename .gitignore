@@ -4,6 +4,7 @@ Thumbs.db
 .vscode/
 
 # Local tooling output
+.codex-remote-attachments/
 node_modules/
 dist/
 coverage/

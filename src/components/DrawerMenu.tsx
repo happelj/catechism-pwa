@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useCatechizer } from "../state/CatechizerContext";
 
 type DrawerMenuProps = {
   isOpen: boolean;
@@ -31,7 +30,6 @@ const externalLinks = [
 
 export function DrawerMenu({ isOpen, onClose }: DrawerMenuProps) {
   const navigate = useNavigate();
-  const { toggleTheme } = useCatechizer();
 
   function goTo(path: string) {
     onClose();
@@ -42,7 +40,6 @@ export function DrawerMenu({ isOpen, onClose }: DrawerMenuProps) {
     <div className={`drawer-layer ${isOpen ? "open" : ""}`} aria-hidden={!isOpen}>
       <button aria-label="Close menu" className="drawer-scrim" onClick={onClose} type="button" />
       <nav className="drawer-panel" aria-label="Main menu">
-        <button onClick={toggleTheme} type="button">Toggle Dark Mode</button>
         <button onClick={() => goTo("/profiles")} type="button">Switch Profile</button>
         <button onClick={() => goTo("/stats")} type="button">View Stats</button>
         <button onClick={() => goTo("/about")} type="button">About</button>

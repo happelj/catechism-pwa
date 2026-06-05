@@ -199,13 +199,19 @@ a {
 }
 
 .question-index-rail {
-  align-content: center;
   background: var(--primary);
   display: grid;
-  gap: 1px;
+  grid-template-rows: minmax(0, 1fr) auto;
   justify-items: stretch;
   min-height: 0;
-  padding: 8px;
+  padding: 8px 8px max(8px, env(safe-area-inset-bottom));
+}
+
+.question-index-links {
+  align-content: center;
+  display: grid;
+  gap: 1px;
+  min-height: 0;
 }
 
 .question-index-rail button {
@@ -217,6 +223,24 @@ a {
   line-height: 1;
   min-height: 39px;
   padding: 0;
+}
+
+.theme-rail-toggle {
+  align-items: center;
+  display: grid;
+  justify-items: center;
+  margin-top: 10px;
+  min-height: 56px;
+}
+
+.theme-rail-toggle svg {
+  fill: none;
+  height: 29px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+  width: 29px;
 }
 
 :root[data-theme="dark"] .question-index-rail button {

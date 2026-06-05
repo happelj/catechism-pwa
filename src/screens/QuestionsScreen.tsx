@@ -8,7 +8,7 @@ import { useCatechizer } from "../state/CatechizerContext";
 
 export function QuestionsScreen() {
   const navigate = useNavigate();
-  const { currentProfile } = useCatechizer();
+  const { currentProfile, settings, toggleTheme } = useCatechizer();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +42,7 @@ export function QuestionsScreen() {
             </button>
           ))}
         </div>
-        <QuestionIndexRail onSelect={scrollToQuestion} />
+        <QuestionIndexRail onSelect={scrollToQuestion} onToggleTheme={toggleTheme} theme={settings.theme} />
       </section>
       <DrawerMenu isOpen={isDrawerOpen} onClose={() => setIsDrawerOpen(false)} />
     </main>
