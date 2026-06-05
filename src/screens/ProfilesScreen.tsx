@@ -9,10 +9,13 @@ export function ProfilesScreen() {
     createProfile,
     currentProfile,
     deleteProfile,
+    markDeleteProfileHelpSeen,
     profiles,
+    settings,
     switchProfile,
   } = useCatechizer();
   const [isCreateOpen, setIsCreateOpen] = useState(false);
+  const [isDeleteHelpOpen, setIsDeleteHelpOpen] = useState(false);
   const [profileName, setProfileName] = useState("");
   const [error, setError] = useState("");
   const sortedProfiles = useMemo(
@@ -31,11 +34,20 @@ export function ProfilesScreen() {
     setIsCreateOpen(false);
     setProfileName("");
     setError("");
+
+    if (!settings.hasSeenDeleteProfileHelp) {
+      setIsDeleteHelpOpen(true);
+    }
   }
 
   function selectProfile(profileId: string) {
     switchProfile(profileId);
     navigate("/");
+  }
+
+  function dismissDeleteHelp() {
+    markDeleteProfileHelpSeen();
+    setIsDeleteHelpOpen(false);
   }
 
   return (
@@ -83,6 +95,16 @@ export function ProfilesScreen() {
           <div className="dialog-actions">
             <button onClick={() => setIsCreateOpen(false)} type="button">Cancel</button>
             <button onClick={submitProfile} type="button">Create</button>
+          </div>
+        </Dialog>
+      )}
+      {isDeleteHelpOpen && (
+        <Dialog onDismiss={dismissDeleteHelp} title="Deleting a Profile">
+          <p className="dialog-copy">
+            To delete the user, press and hold the username, and then click Delete.
+          </p>
+          <div className="dialog-actions">
+            <button onClick={dismissDeleteHelp} type="button">OK</button>
           </div>
         </Dialog>
       )}

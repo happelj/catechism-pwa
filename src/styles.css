@@ -415,6 +415,32 @@ a {
   text-transform: uppercase;
 }
 
+.theme-help-visual {
+  align-items: center;
+  color: var(--surface-text);
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  margin: 12px 0 8px auto;
+  width: 120px;
+}
+
+.theme-help-visual svg {
+  fill: none;
+  height: 58px;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.1;
+  width: 58px;
+}
+
+.theme-help-visual span {
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.2;
+}
+
 .proof-passage {
   font-size: 16px;
   line-height: 1.45;

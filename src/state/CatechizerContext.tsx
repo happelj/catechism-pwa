@@ -24,7 +24,11 @@ type CatechizerContextValue = StoredState & {
   currentProfile: Profile | null;
   deleteProfile: (profileId: string) => void;
   getSessionElapsedMillis: (profileId: string) => number;
+  markAnswerHelpSeen: () => void;
+  markCreateProfileHelpSeen: () => void;
+  markDeleteProfileHelpSeen: () => void;
   markProofHelpSeen: () => void;
+  markThemeToggleHelpSeen: () => void;
   recordAttempt: (questionNumber: number, score: number, timeSpentMillis: number) => void;
   switchProfile: (profileId: string) => void;
   toggleTheme: () => void;
@@ -53,7 +57,11 @@ function defaultState(): StoredState {
     profiles: [],
     settings: {
       currentProfileId: null,
+      hasSeenAnswerHelp: false,
+      hasSeenCreateProfileHelp: false,
+      hasSeenDeleteProfileHelp: false,
       hasSeenProofHelp: false,
+      hasSeenThemeToggleHelp: false,
       theme: "light",
     },
   };
@@ -84,7 +92,17 @@ function normalizeStoredState(value: unknown): StoredState {
     profiles,
     settings: {
       currentProfileId: parsed.settings?.currentProfileId ?? fallback.settings.currentProfileId,
+      hasSeenAnswerHelp: parsed.settings?.hasSeenAnswerHelp ?? fallback.settings.hasSeenAnswerHelp,
+      hasSeenCreateProfileHelp: (
+        parsed.settings?.hasSeenCreateProfileHelp ?? fallback.settings.hasSeenCreateProfileHelp
+      ),
+      hasSeenDeleteProfileHelp: (
+        parsed.settings?.hasSeenDeleteProfileHelp ?? fallback.settings.hasSeenDeleteProfileHelp
+      ),
       hasSeenProofHelp: parsed.settings?.hasSeenProofHelp ?? fallback.settings.hasSeenProofHelp,
+      hasSeenThemeToggleHelp: (
+        parsed.settings?.hasSeenThemeToggleHelp ?? fallback.settings.hasSeenThemeToggleHelp
+      ),
       theme: parsed.settings?.theme === "dark" ? "dark" : fallback.settings.theme,
     },
   };
@@ -346,6 +364,46 @@ export function CatechizerProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
+  const markCreateProfileHelpSeen = useCallback(() => {
+    setState((current) => ({
+      ...current,
+      settings: {
+        ...current.settings,
+        hasSeenCreateProfileHelp: true,
+      },
+    }));
+  }, []);
+
+  const markThemeToggleHelpSeen = useCallback(() => {
+    setState((current) => ({
+      ...current,
+      settings: {
+        ...current.settings,
+        hasSeenThemeToggleHelp: true,
+      },
+    }));
+  }, []);
+
+  const markAnswerHelpSeen = useCallback(() => {
+    setState((current) => ({
+      ...current,
+      settings: {
+        ...current.settings,
+        hasSeenAnswerHelp: true,
+      },
+    }));
+  }, []);
+
+  const markDeleteProfileHelpSeen = useCallback(() => {
+    setState((current) => ({
+      ...current,
+      settings: {
+        ...current.settings,
+        hasSeenDeleteProfileHelp: true,
+      },
+    }));
+  }, []);
+
   const value = useMemo<CatechizerContextValue>(() => ({
     ...state,
     clearProgress,
@@ -353,7 +411,11 @@ export function CatechizerProvider({ children }: { children: ReactNode }) {
     currentProfile,
     deleteProfile,
     getSessionElapsedMillis,
+    markAnswerHelpSeen,
+    markCreateProfileHelpSeen,
+    markDeleteProfileHelpSeen,
     markProofHelpSeen,
+    markThemeToggleHelpSeen,
     recordAttempt,
     switchProfile,
     toggleTheme,
@@ -363,7 +425,11 @@ export function CatechizerProvider({ children }: { children: ReactNode }) {
     currentProfile,
     deleteProfile,
     getSessionElapsedMillis,
+    markAnswerHelpSeen,
+    markCreateProfileHelpSeen,
+    markDeleteProfileHelpSeen,
     markProofHelpSeen,
+    markThemeToggleHelpSeen,
     recordAttempt,
     state,
     switchProfile,

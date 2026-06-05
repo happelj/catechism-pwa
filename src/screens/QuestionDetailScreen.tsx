@@ -18,7 +18,13 @@ function displayProofReference(reference: string) {
 export function QuestionDetailScreen() {
   const navigate = useNavigate();
   const { questionNumber } = useParams();
-  const { currentProfile, recordAttempt, settings, markProofHelpSeen } = useCatechizer();
+  const {
+    currentProfile,
+    markAnswerHelpSeen,
+    markProofHelpSeen,
+    recordAttempt,
+    settings,
+  } = useCatechizer();
   const parsedQuestionNumber = Number(questionNumber);
   const questionIndex = catechismQuestions.findIndex((item) => item.number === parsedQuestionNumber);
   const question = catechismQuestions[questionIndex];
@@ -32,6 +38,7 @@ export function QuestionDetailScreen() {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
   const [areProofsVisible, setAreProofsVisible] = useState(false);
   const [activeProof, setActiveProof] = useState<string | null>(null);
+  const [isAnswerHelpOpen, setIsAnswerHelpOpen] = useState(false);
   const [isProofHelpOpen, setIsProofHelpOpen] = useState(false);
   const completed = typedWords.length === answerWords.length && answerWords.length > 0;
   const wrongWords = typedWords.filter((word) => !word.correct).length;
@@ -45,19 +52,34 @@ export function QuestionDetailScreen() {
     setActiveProof(null);
     setAreProofsVisible(false);
     setIsAnswerVisible(false);
+    setIsAnswerHelpOpen(false);
     setIsProofHelpOpen(false);
     setTypedWords([]);
     requestAnimationFrame(() => captureRef.current?.focus());
   }, [parsedQuestionNumber]);
 
   useEffect(() => {
-    if (!question?.proofs.length || settings.hasSeenProofHelp) {
+    if (!question || settings.hasSeenAnswerHelp) {
+      return;
+    }
+
+    setIsAnswerHelpOpen(true);
+    requestAnimationFrame(() => captureRef.current?.blur());
+  }, [question, settings.hasSeenAnswerHelp]);
+
+  useEffect(() => {
+    if (
+      !question?.proofs.length
+      || !settings.hasSeenAnswerHelp
+      || settings.hasSeenProofHelp
+      || isAnswerHelpOpen
+    ) {
       return;
     }
 
     setIsProofHelpOpen(true);
     requestAnimationFrame(() => captureRef.current?.blur());
-  }, [question, settings.hasSeenProofHelp]);
+  }, [isAnswerHelpOpen, question, settings.hasSeenAnswerHelp, settings.hasSeenProofHelp]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -164,6 +186,12 @@ export function QuestionDetailScreen() {
     setAreProofsVisible((value) => !value);
   }
 
+  function dismissAnswerHelp() {
+    setIsAnswerHelpOpen(false);
+    markAnswerHelpSeen();
+    requestAnimationFrame(() => captureRef.current?.focus());
+  }
+
   function dismissProofHelp() {
     setIsProofHelpOpen(false);
     markProofHelpSeen();
@@ -268,6 +296,16 @@ export function QuestionDetailScreen() {
         </button>
       </footer>
       {activeProof && <ProofDialog onDismiss={() => setActiveProof(null)} reference={activeProof} />}
+      {isAnswerHelpOpen && (
+        <Dialog onDismiss={dismissAnswerHelp} title="Answering Questions">
+          <p className="dialog-copy">
+            To answer a question, tap the first letter of each word in the answer.
+          </p>
+          <div className="dialog-actions">
+            <button onClick={dismissAnswerHelp} type="button">OK</button>
+          </div>
+        </Dialog>
+      )}
       {isProofHelpOpen && (
         <Dialog onDismiss={dismissProofHelp} title="Using Scripture Proofs">
           <p className="dialog-copy">
