@@ -27,7 +27,6 @@ export type CatechizerSettings = {
   currentProfileId: string | null;
   hasSeenAnswerHelp: boolean;
   hasSeenCreateProfileHelp: boolean;
-  hasSeenDeleteProfileHelp: boolean;
   hasSeenProofHelp: boolean;
   hasSeenThemeToggleHelp: boolean;
   theme: "light" | "dark";

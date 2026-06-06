@@ -26,7 +26,6 @@ type CatechizerContextValue = StoredState & {
   getSessionElapsedMillis: (profileId: string) => number;
   markAnswerHelpSeen: () => void;
   markCreateProfileHelpSeen: () => void;
-  markDeleteProfileHelpSeen: () => void;
   markProofHelpSeen: () => void;
   markThemeToggleHelpSeen: () => void;
   recordAttempt: (questionNumber: number, score: number, timeSpentMillis: number) => void;
@@ -59,7 +58,6 @@ function defaultState(): StoredState {
       currentProfileId: null,
       hasSeenAnswerHelp: false,
       hasSeenCreateProfileHelp: false,
-      hasSeenDeleteProfileHelp: false,
       hasSeenProofHelp: false,
       hasSeenThemeToggleHelp: false,
       theme: "light",
@@ -95,9 +93,6 @@ function normalizeStoredState(value: unknown): StoredState {
       hasSeenAnswerHelp: parsed.settings?.hasSeenAnswerHelp ?? fallback.settings.hasSeenAnswerHelp,
       hasSeenCreateProfileHelp: (
         parsed.settings?.hasSeenCreateProfileHelp ?? fallback.settings.hasSeenCreateProfileHelp
-      ),
-      hasSeenDeleteProfileHelp: (
-        parsed.settings?.hasSeenDeleteProfileHelp ?? fallback.settings.hasSeenDeleteProfileHelp
       ),
       hasSeenProofHelp: parsed.settings?.hasSeenProofHelp ?? fallback.settings.hasSeenProofHelp,
       hasSeenThemeToggleHelp: (
@@ -394,16 +389,6 @@ export function CatechizerProvider({ children }: { children: ReactNode }) {
     }));
   }, []);
 
-  const markDeleteProfileHelpSeen = useCallback(() => {
-    setState((current) => ({
-      ...current,
-      settings: {
-        ...current.settings,
-        hasSeenDeleteProfileHelp: true,
-      },
-    }));
-  }, []);
-
   const value = useMemo<CatechizerContextValue>(() => ({
     ...state,
     clearProgress,
@@ -413,7 +398,6 @@ export function CatechizerProvider({ children }: { children: ReactNode }) {
     getSessionElapsedMillis,
     markAnswerHelpSeen,
     markCreateProfileHelpSeen,
-    markDeleteProfileHelpSeen,
     markProofHelpSeen,
     markThemeToggleHelpSeen,
     recordAttempt,
@@ -427,7 +411,6 @@ export function CatechizerProvider({ children }: { children: ReactNode }) {
     getSessionElapsedMillis,
     markAnswerHelpSeen,
     markCreateProfileHelpSeen,
-    markDeleteProfileHelpSeen,
     markProofHelpSeen,
     markThemeToggleHelpSeen,
     recordAttempt,
